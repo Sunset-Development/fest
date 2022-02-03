@@ -75,7 +75,7 @@ const tokenize = (expression) => {
             continue;
         }
         
-        throw Error(`whats dis: ${character}`);
+        throw Error(`whats this: ${character}`);
     }
 }
 
