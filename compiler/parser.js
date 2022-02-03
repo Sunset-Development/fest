@@ -14,6 +14,7 @@ const isFloat = (n) =>
 
 const isNumeric = num => { return !isNaN(num) }
 
+//for parsing
 const getTokenType = (token) =>
 {
     if(isNumeric(token))
@@ -54,11 +55,15 @@ const getTokenType = (token) =>
     }
 }
 
-const getParseable = () => {
+// fix parsing problems and make 0arsing a little bit easier
+const getParseable = (line) => {
     
 }
 
 const parse = (line, index) => {
+    // there's a problem, if we have this: var e=0
+    // it'll split the line into ["var", "e=0"]
+    // so getParseable(line) will generate a new string or array and avoid this
     let args = line.split(" ");
     let token = [];
     let result = [];
