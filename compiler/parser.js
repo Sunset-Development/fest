@@ -55,7 +55,7 @@ const getTokenType = (token) =>
     }
 }
 
-// fix parsing problems and make 0arsing a little bit easier
+// fix parsing problems and make parsing a little bit easier
 const getParseable = (line) => {
     
 }
