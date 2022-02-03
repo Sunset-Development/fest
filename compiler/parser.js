@@ -1,5 +1,5 @@
 // parser.js NEW
-// the old parser bave been scrapped because it lacks a lot of efficiency
+// the old parser have been scrapped because it lacks a lot of efficiency
 
 // JUST A TEST, NOT OFFICIAL
 
@@ -81,8 +81,56 @@ const tokenize = (expression) => {
 
 const parse = (tokens) => {
     
+    let currentIndex = 0;
+        
+    const walk = (startpoint) => {
+        let token = tokens[startpoint];
+        
+        if(token.type == "number")
+        {
+            startpoint++;
+            return {
+                type: "LiteralNumber",
+                value: token.value
+            }
+        }
+        
+        if(token.type == "left parenthesis")
+        {
+            startpoint++;
+            token = tokens[startpoint];
+            let node = {
+                type: "CallExpression",
+                name: token.type,
+                param: []
+            }
+            
+            startpoint++;
+            token = tokens[startpoint];
+            while(token.type != "right parenthesis")
+            {
+                node.param.push(walk(startpoint));
+                token = tokens[startpoint]
+            }
+            startpoint++;
+            return node;
+        }
+        
+        throw Error(`${token.type}`);
+    }
+    
+    let ast = {
+        type: "program",
+        body: []
+    }
+    
+    while(tokens.length > currentIndex)
+    {
+        ast.body.push(walk(currentIndex));
+    }
 }
 
 //WORK IN PROGRESS
 // 3/2/2022 16:36, 1
-// 3/2/2022 21:58, 2
+// 3/2/2022, 21:58, 2
+// 4/2/2022, 4:44, 3
