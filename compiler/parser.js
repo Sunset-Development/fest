@@ -1,6 +1,6 @@
 // parser.js NEW
 // the old parser have been scrapped because it lacks a lot of efficiency
-// parser.js have been tested snd it is working
+// parser.js have been tested and it is working
 // ill just comment out the test so i can test it again later
 
 // JUST A TEST, NOT OFFICIAL
