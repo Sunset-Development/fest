@@ -1,19 +1,25 @@
 // parser.js NEW
 // the old parser have been scrapped because it lacks a lot of efficiency
+// parser.js have been tested snd it is working
+// ill just comment out the test so i can test it again later
 
 // JUST A TEST, NOT OFFICIAL
 
 const tokenize = (expression) => {
     let alphabet = "abcdfghijklmnopqrstuvwxyz".split("");
     let numbers = "0123456789".split("");
-    let space = "\s";
+    let space = " ";
     
     let currentIndex = 0;
     let tokens = [];
     
-    while(expression.length > currentIndex)
+    //console.log(expression.length)
+    
+    while(currentIndex < expression.length)
     {
         let character = expression[currentIndex];
+        
+        //console.log(character)
         
         if(character == space)
         {
@@ -48,7 +54,7 @@ const tokenize = (expression) => {
             let value = '';
             while(numbers.includes(character))
             {
-                value += chararcter;
+                value += character;
                 currentIndex++;
                 character = expression[currentIndex];
             }
@@ -64,7 +70,7 @@ const tokenize = (expression) => {
             let value = '';
             while(alphabet.includes(character))
             {
-                value += chararcter;
+                value += character;
                 currentIndex++;
                 character = expression[currentIndex];
             }
@@ -77,18 +83,20 @@ const tokenize = (expression) => {
         
         throw Error(`whats this: ${character}`);
     }
+    
+    return tokens;
 }
 
 const parse = (tokens) => {
     
     let currentIndex = 0;
         
-    const walk = (startpoint) => {
-        let token = tokens[startpoint];
+    const walk = () => {
+        let token = tokens[currentIndex];
         
         if(token.type == "number")
         {
-            startpoint++;
+            currentIndex++;
             return {
                 type: "LiteralNumber",
                 value: token.value
@@ -97,22 +105,24 @@ const parse = (tokens) => {
         
         if(token.type == "left parenthesis")
         {
-            startpoint++;
-            token = tokens[startpoint];
+            currentIndex++;
+            token = tokens[currentIndex];
             let node = {
                 type: "CallExpression",
                 name: token.type,
                 param: []
             }
             
-            startpoint++;
-            token = tokens[startpoint];
+            //currentIndex++;
+            token = tokens[currentIndex];
             while(token.type != "right parenthesis")
             {
-                node.param.push(walk(startpoint));
-                token = tokens[startpoint]
+                node.param.push(walk());
+                token = tokens[currentIndex];
+//console.log(currentIndex);
+//console.log(node.param);
             }
-            startpoint++;
+            currentIndex++;
             return node;
         }
         
@@ -123,14 +133,22 @@ const parse = (tokens) => {
         type: "program",
         body: []
     }
-    
-    while(tokens.length > currentIndex)
+    console.log(tokens.length);
+    while(currentIndex < tokens.length)
     {
-        ast.body.push(walk(currentIndex));
+        ast.body.push(walk());
+        //console.log("in loop");
+        //console.log(currentIndex);
     }
+    
+    return ast;
 }
+
+//console.log(parse(tokenize("1 2(1 3)")));
+//console.log(tokenize("1 2(1 3)"));
 
 //WORK IN PROGRESS
 // 3/2/2022 16:36, 1
 // 3/2/2022, 21:58, 2
 // 4/2/2022, 4:44, 3
+// 4/2/2022, 21:08, 4
