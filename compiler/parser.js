@@ -133,7 +133,7 @@ const parse = (tokens) => {
         type: "program",
         body: []
     }
-    console.log(tokens.length);
+    //console.log(tokens.length);
     while(currentIndex < tokens.length)
     {
         ast.body.push(walk());
