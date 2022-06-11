@@ -224,8 +224,8 @@ const parse = (tokens) => {
     return ast;
 }
 
-console.log(parse(tokenize("1 + 2(1 - 3)")).body[3].param);
-console.log(parse(tokenize("1 + 2(1 - 3)")));
+//console.log(parse(tokenize("1 + 2 - (1 - 3)")).body[3].param);
+//console.log(parse(tokenize("1 + 2 - (1 - 3)")));
 
 //WORK IN PROGRESS
 // 3/2/2022 16:36, 1
