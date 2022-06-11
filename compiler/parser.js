@@ -48,6 +48,50 @@ const tokenize = (expression) => {
             currentIndex++;
             continue;
         }
+
+        if(character == "+")
+        {
+            tokens.push({
+                type: "addition sign",
+                value: "+"
+            });
+            
+            currentIndex++;
+            continue;
+        }
+
+        if(character == "-")
+        {
+            tokens.push({
+                type: "subtraction sign",
+                value: "-"
+            });
+            
+            currentIndex++;
+            continue;
+        }
+
+        if(character == "*")
+        {
+            tokens.push({
+                type: "multiplication sign",
+                value: "*"
+            });
+            
+            currentIndex++;
+            continue;
+        }
+
+        if(character == "/")
+        {
+            tokens.push({
+                type: "division sign",
+                value: "/"
+            });
+            
+            currentIndex++;
+            continue;
+        }
         
         if(numbers.includes(character))
         {
@@ -81,7 +125,7 @@ const tokenize = (expression) => {
             continue;
         }
         
-        throw Error(`whats this: ${character}`);
+        throw Error(`error, unrecognized syntax: ${character}`);
     }
     
     return tokens;
@@ -99,6 +143,42 @@ const parse = (tokens) => {
             currentIndex++;
             return {
                 type: "LiteralNumber",
+                value: token.value
+            }
+        }
+
+        if(token.type == "addition sign")
+        {
+            currentIndex++;
+            return {
+                type: "CallValue",
+                value: token.value
+            }
+        }
+
+        if(token.type == "subtraction sign")
+        {
+            currentIndex++;
+            return {
+                type: "CallValue",
+                value: token.value
+            }
+        }
+
+        if(token.type == "multiplication sign")
+        {
+            currentIndex++;
+            return {
+                type: "CallValue",
+                value: token.value
+            }
+        }
+
+        if(token.type == "division sign")
+        {
+            currentIndex++;
+            return {
+                type: "CallValue",
                 value: token.value
             }
         }
@@ -144,11 +224,12 @@ const parse = (tokens) => {
     return ast;
 }
 
-//console.log(parse(tokenize("1 2(1 3)")));
-//console.log(tokenize("1 2(1 3)"));
+console.log(parse(tokenize("1 + 2(1 - 3)")).body[3].param);
+console.log(parse(tokenize("1 + 2(1 - 3)")));
 
 //WORK IN PROGRESS
 // 3/2/2022 16:36, 1
 // 3/2/2022, 21:58, 2
 // 4/2/2022, 4:44, 3
 // 4/2/2022, 21:08, 4
+// 11/6/2022, 13:47, 5
