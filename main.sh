@@ -1,2 +1,2 @@
-node compiler/parser.js
-# run parser for testing
+node compiler/compiler.js
+# run compiler for testing

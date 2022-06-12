@@ -131,6 +131,8 @@ const tokenize = (expression) => {
     return tokens;
 }
 
+module.exports.tokenize = tokenize;
+
 const parse = (tokens) => {
     
     let currentIndex = 0;
@@ -223,6 +225,8 @@ const parse = (tokens) => {
     
     return ast;
 }
+
+module.exports.parse = parse;
 
 //console.log(parse(tokenize("1 + 2 - (1 - 3)")).body[3].param);
 //console.log(parse(tokenize("1 + 2 - (1 - 3)")));
