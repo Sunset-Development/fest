@@ -3,6 +3,9 @@ const parse = require("./parser.js").parse;
 const transform = require("./transformer");
 const generatecode = require("./codegenerator.js");
 
+const compile = (input_expression) = {
+
+}
 
 console.log(tokenize("1 + 2"));
 
