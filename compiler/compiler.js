@@ -4,4 +4,6 @@ const transform = require("./transformer");
 const generatecode = require("./codegenerator.js");
 
 
-console.log(tokenize("1 + 2"))
+console.log(tokenize("1 + 2"));
+
+//12/6/2022, 18:59, 6
