@@ -1,4 +1,4 @@
-const codegenerator = (ast} => {
+const codegenerator = (ast) => {
 
 }
 
