@@ -1,8 +1,8 @@
 const traverse = (ast, methods) => {
 
     const traverseArr = (current, parent) => {
-         for(let child in current){
-              traverseNode(child, parent);
+         for(let child = 0; child<current.length; child++){
+              traverseNode(current[child], parent);
          }
     }
 
@@ -13,6 +13,9 @@ const traverse = (ast, methods) => {
               func(node, parent);
           }
 
+        console.log(node);
+        console.log(" ");
+        console.log(" ");
         
           switch(node.type)   
           {
@@ -26,9 +29,9 @@ const traverse = (ast, methods) => {
                   break;
               case "CallValue":
                   break;
-              /*default:
+              default:
                   throw Error(`${node.type}`);
-                  break;*/
+                  break;
           } 
         
     }
@@ -43,51 +46,12 @@ const transform = (ast) => {
     ast.context = newAst.body;
 
     const CallValueTraverse = (node, parent) => {
-        let node_name = "";
         
-        switch(node.value){
-            case "+":
-                node_name = "add";
-                break;
-            case "-":
-                node_name = "subtract";
-                break;
-            case "/":
-                node_name = "divide";
-                break;
-            case "*":
-                node_name = "multiply";
-                break;
+    }
 
-        }
-        
-        let expression = {
-            type: "CallValue",
-            callee: {
-                type: "Identifier",
-                name: node_name
-            },
-            arguments: []
-        }
-
-        node.context = expression.arguments;
-
-        if (parent.type != "CallValue"){
-            let ex = {
-                type: "ValueStatement",
-                expression: expression
-            }
-        }
-
-        parent.context.push(expression);
-        }
-
-        const NumberLiteralTraverse = (node, parent) => {
-              parent.context.push({
-                   type: "NumberLiteral",
-                   value: node.value
-              });
-        }
+    const NumberLiteralTraverse = (node, parent) => {
+            
+    }
 
     let methods = [];
     methods["CallValue"] = CallValueTraverse;
