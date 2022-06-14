@@ -13,9 +13,9 @@ const traverse = (ast, methods) => {
               func(node, parent);
           }
 
-        console.log(node);
+        /*console.log(node);
         console.log(" ");
-        console.log(" ");
+        console.log(" ");*/
         
           switch(node.type)   
           {

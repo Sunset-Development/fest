@@ -7,7 +7,7 @@ const compile = (input_expression) = {
 
 }
 
-transform(parse(tokenize("1 + 2 - (2 - 4)")))
+//transform(parse(tokenize("1 + 2 - (2 - 4)")))
 //console.log(parse(tokenize("1 + 2 - (2 - 4)")))
 
 
