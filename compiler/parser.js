@@ -8,12 +8,13 @@
 const tokenize = (expression) => {
     let alphabet = "abcdfghijklmnopqrstuvwxyz".split("");
     let numbers = "0123456789".split("");
-    let space = " ";
-    
+    let space = " ";   
     let currentIndex = 0;
     let tokens = [];
-    
+
+    ///////////////////////////////////
     //console.log(expression.length)
+    ///////////////////////////////////
     
     while(currentIndex < expression.length)
     {
@@ -26,6 +27,8 @@ const tokenize = (expression) => {
             currentIndex++;
             continue;
         }
+
+        ///////////////////////////////////
         
         if(character == "(")
         {
@@ -37,6 +40,8 @@ const tokenize = (expression) => {
             currentIndex++;
             continue;
         }
+
+        ///////////////////////////////////
         
         if(character == ")")
         {
@@ -49,6 +54,8 @@ const tokenize = (expression) => {
             continue;
         }
 
+        ///////////////////////////////////
+
         if(character == "+")
         {
             tokens.push({
@@ -59,6 +66,8 @@ const tokenize = (expression) => {
             currentIndex++;
             continue;
         }
+
+        ///////////////////////////////////
 
         if(character == "-")
         {
@@ -71,6 +80,8 @@ const tokenize = (expression) => {
             continue;
         }
 
+        ///////////////////////////////////
+
         if(character == "*")
         {
             tokens.push({
@@ -82,6 +93,8 @@ const tokenize = (expression) => {
             continue;
         }
 
+        ///////////////////////////////////
+
         if(character == "/")
         {
             tokens.push({
@@ -92,6 +105,8 @@ const tokenize = (expression) => {
             currentIndex++;
             continue;
         }
+
+        ///////////////////////////////////
         
         if(numbers.includes(character))
         {
@@ -108,6 +123,8 @@ const tokenize = (expression) => {
             });
             continue;
         }
+
+        ///////////////////////////////////
         
         if(alphabet.includes(character))
         {
@@ -124,6 +141,8 @@ const tokenize = (expression) => {
             });
             continue;
         }
+        
+        ///////////////////////////////////
         
         throw Error(`error, unrecognized syntax: ${character}`);
     }
@@ -153,7 +172,8 @@ const parse = (tokens) => {
         {
             currentIndex++;
             return {
-                type: "CallValue",
+                type: "CallOperator",
+                op_type: "Add",
                 value: token.value
             }
         }
@@ -162,7 +182,8 @@ const parse = (tokens) => {
         {
             currentIndex++;
             return {
-                type: "CallValue",
+                type: "CallOperator",
+                op_type: "Sub",
                 value: token.value
             }
         }
@@ -171,7 +192,8 @@ const parse = (tokens) => {
         {
             currentIndex++;
             return {
-                type: "CallValue",
+                type: "CallOperator",
+                op_type: "Mul",
                 value: token.value
             }
         }
@@ -180,7 +202,8 @@ const parse = (tokens) => {
         {
             currentIndex++;
             return {
-                type: "CallValue",
+                type: "CallOperator",
+                op_type: "Div",
                 value: token.value
             }
         }
@@ -201,8 +224,8 @@ const parse = (tokens) => {
             {
                 node.param.push(walk());
                 token = tokens[currentIndex];
-//console.log(currentIndex);
-//console.log(node.param);
+                //console.log(currentIndex);
+                //console.log(node.param);
             }
             currentIndex++;
             return node;
@@ -225,6 +248,8 @@ const parse = (tokens) => {
     
     return ast;
 }
+
+///////////////////////////////////
 
 module.exports.parse = parse;
 

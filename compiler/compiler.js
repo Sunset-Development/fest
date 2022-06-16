@@ -3,11 +3,13 @@ const parse = require("./parser.js").parse;
 const transform = require("./transformer");
 const generatecode = require("./codegenerator.js");
 
+///////////////////////////////////
+
 const compile = (input_expression) = {
 
 }
 
-//transform(parse(tokenize("1 + 2 - (2 - 4)")))
+console.log(transform(parse(tokenize("1 + 2"))));
 //console.log(parse(tokenize("1 + 2 - (2 - 4)")))
 
 

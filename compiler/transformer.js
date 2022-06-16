@@ -1,66 +1,82 @@
-const traverse = (ast, methods) => {
-
-    const traverseArr = (current, parent) => {
-         for(let child = 0; child<current.length; child++){
-              traverseNode(current[child], parent);
-         }
-    }
-
-    const traverseNode = (node, parent) => {
-
-          let func = methods[node.type];
-          if (func) {
-              func(node, parent);
-          }
-
-        /*console.log(node);
-        console.log(" ");
-        console.log(" ");*/
-        
-          switch(node.type)   
-          {
-              case "program":
-                  traverseArr(node.body, node);
-                  break;
-              case "CallExpression":
-                  traverseArr(node.param, node);
-                  break;
-              case "LiteralNumber":
-                  break;
-              case "CallValue":
-                  break;
-              default:
-                  throw Error(`${node.type}`);
-                  break;
-          } 
-        
-    }
-
-    traverseNode(ast, null)
-}
-
 const transform = (ast) => {
-    let oldAst = ast;
-    let newAst = oldAst;
+    let new_ast = {
+        type: "program",
+        body: []
+    };
+    let tokens = ast.body;
+    let tok_index = 0;
+    let cur_tok = tokens[tok_index];
+    
+    ///////////////////////////////////
 
-    ast.context = newAst.body;
+    const advance = () => {
+        tok_index += 1;
+        
+        if(tok_index < tokens.length-1){
+            cur_tok = tokens[tok_index];
+        }
 
-    const CallValueTraverse = (node, parent) => {
+        return cur_tok;
+    }
+
+    ///////////////////////////////////
+
+    const factor = () => {
+        let token = cur_tok;
+        
+        if(token.type == "LiteralNumber"){
+            advance();
+            return token;
+        }
+    }
+
+    ///////////////////////////////////
+
+    const term = () => {
+        return op(factor, ["Mul", "Div"]);
+    }
+
+    ///////////////////////////////////
+
+    const expression = () => {
+        return op(term, ["Add", "Sub"]);
+    }
+    
+    ///////////////////////////////////
+
+    const op = (func, ops) => {
+        let params = [];
+        params.push(func());
+        let node;
+
+        while(ops.includes(cur_tok.op_type)){
+            let operator_tok = cur_tok;
+            params.push(func());
+
+            node = {
+                type: "OperationStatement",
+                operation: {
+                    type: `${cur_tok.op_type}`,
+                    params: params
+                }
+            };
+            
+        }
+
+        return node;
         
     }
 
-    const NumberLiteralTraverse = (node, parent) => {
-            
-    }
+    ///////////////////////////////////
 
-    let methods = [];
-    methods["CallValue"] = CallValueTraverse;
-    methods["LiteralNumber"] = NumberLiteralTraverse;
+    new_ast.body.push(expression());
 
-    traverse(ast, methods);
+    ///////////////////////////////////
 
-    return newAst;
+    return new_ast;
 }
+
+///////////////////////////////////
 
 module.exports = transform;
 
