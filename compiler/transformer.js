@@ -12,7 +12,7 @@ const transform = (ast) => {
     const advance = () => {
         tok_index += 1;
         
-        if(tok_index < tokens.length-1){
+        if(tok_index < tokens.length){
             cur_tok = tokens[tok_index];
         }
 
@@ -33,36 +33,46 @@ const transform = (ast) => {
     ///////////////////////////////////
 
     const term = () => {
-        return op(factor, ["Mul", "Div"]);
+        return op(factor, ["Mul", "Div"], "Term");
     }
 
     ///////////////////////////////////
 
     const expression = () => {
-        return op(term, ["Add", "Sub"]);
+        return op(term, ["Add", "Sub"], "Expr");
     }
     
     ///////////////////////////////////
 
-    const op = (func, ops) => {
+    const op = (func, ops, t) => {
         let params = [];
         params.push(func());
+        console.log(params);
+        console.log(t);
+        console.log(" ");
         let node;
 
         while(ops.includes(cur_tok.op_type)){
             let operator_tok = cur_tok;
-            params.push(func());
 
             node = {
                 type: "OperationStatement",
                 operation: {
                     type: `${cur_tok.op_type}`,
-                    params: params
                 }
             };
             
+            advance();
+            params.push(func());
+
+            node.operation.params = params;
+            
         }
 
+        console.log(node);
+        console.log(t);
+        console.log(" ");
+        
         return node;
         
     }
