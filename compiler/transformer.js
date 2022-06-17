@@ -1,3 +1,7 @@
+// The transformer is still very buggy but so ill fix it later
+// It works for now
+
+//TODO: transform parenthesises
 const transform = (ast) => {
     let new_ast = {
         type: "program",
