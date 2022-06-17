@@ -1,7 +1,10 @@
 <img align="left" width="120px" height="120px" src="https://i.ibb.co/mt5r2LC/684609982sst1644137196.png" />
 
 # FEST
-A newly developed language inspired by python and written in node.js
+A newly developed language inspired by c++ and written in node.js
+
+# Usage
+Fest is aimed to be used for fast compiling speeds and readability
 
 
 # While You're waiting...
