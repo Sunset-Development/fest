@@ -33,24 +33,20 @@ const transform = (ast) => {
     ///////////////////////////////////
 
     const term = () => {
-        return op(factor, ["Mul", "Div"], "Term");
+        return op(factor, ["Mul", "Div"]);
     }
 
     ///////////////////////////////////
 
     const expression = () => {
-        return op(term, ["Add", "Sub"], "Expr");
+        return op(term, ["Add", "Sub"]);
     }
     
     ///////////////////////////////////
 
-    const op = (func, ops, t) => {
-        let params = [];
-        params.push(func());
-        console.log(params);
-        console.log(t);
-        console.log(" ");
-        let node;
+    const op = (func, ops) => {
+        let node = func();
+        let params = [node];
 
         while(ops.includes(cur_tok.op_type)){
             let operator_tok = cur_tok;
@@ -68,10 +64,6 @@ const transform = (ast) => {
             node.operation.params = params;
             
         }
-
-        console.log(node);
-        console.log(t);
-        console.log(" ");
         
         return node;
         
