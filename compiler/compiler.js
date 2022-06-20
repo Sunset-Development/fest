@@ -1,5 +1,6 @@
 // The whole FEST V.1 compiler is in seperate file right now 
 // But when im done with the whole compiler ill gather it together in a bootstrap file
+// Currently it doesnt work yet
 
 const tokenize = require("./parser.js").tokenize;
 const parse = require("./parser.js").parse;
