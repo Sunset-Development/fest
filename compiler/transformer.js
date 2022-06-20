@@ -13,6 +13,46 @@ const transform = (ast) => {
     
     ///////////////////////////////////
 
+    // Formatting CallExpressions
+    let temp = [];
+
+    const formatExpression = (ex) => {
+        temp.push({
+            type: "left paren",
+            value: "("
+        });
+
+        for(let i in ex.params){
+            if(ex.params[i].type != "CallExpression"){
+                temp.push(ex.params[i]);
+            }
+            else{
+                formatExpression(ex.params[i]);
+            }
+        }
+
+        temp.push({
+            type: "right paren",
+            value: ")"
+        });
+    }
+    
+    for(let i in tokens)
+    {
+        if(tokens[i].type != "CallExpression"){
+            temp.push(tokens[i]);
+        }
+        else{
+            formatExpression(tokens[i]);
+        }
+    }
+
+    tokens = temp;
+
+    console.log(tokens);
+
+    ///////////////////////////////////
+
     const advance = () => {
         tok_index += 1;
         
@@ -27,10 +67,27 @@ const transform = (ast) => {
 
     const factor = () => {
         let token = cur_tok;
+
+        if(["Add", "Sub"].includes(token.op_type)){
+            advance();
+            let f = factor();
+            let node = [token, f];
+            return node;
+        }
         
         if(token.type == "LiteralNumber"){
             advance();
             return token;
+        }
+
+        if(token.type == "left paren"){
+            advance();
+            expr = expression();
+            if(cur_tok.type == "right paren"){
+                advance();
+                expr.type = "ExpressionStatement";
+                return expr;
+            }
         }
     }
 

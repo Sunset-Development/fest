@@ -215,14 +215,14 @@ const parse = (tokens) => {
             let node = {
                 type: "CallExpression",
                 name: token.type,
-                param: []
+                params: []
             }
             
             //currentIndex++;
             token = tokens[currentIndex];
             while(token.type != "right parenthesis")
             {
-                node.param.push(walk());
+                node.params.push(walk());
                 token = tokens[currentIndex];
                 //console.log(currentIndex);
                 //console.log(node.param);
