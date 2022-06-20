@@ -48,7 +48,7 @@ const transform = (ast) => {
 
     tokens = temp;
 
-    console.log(tokens);
+    //console.log(tokens);
 
     ///////////////////////////////////
 
