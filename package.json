@@ -1,0 +1,19 @@
+{
+  "name": "fest-lang",
+  "version": "1.0.0",
+  "description": " a newly developed language written in node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Henrydev-tran/fest-lang.git"
+  },
+  "author": "Henry-Tran",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Henrydev-tran/fest-lang/issues"
+  },
+  "homepage": "https://github.com/Henrydev-tran/fest-lang#readme"
+}
