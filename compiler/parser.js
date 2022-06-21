@@ -144,7 +144,7 @@ const tokenize = (expression) => {
         
         ///////////////////////////////////
         
-        throw Error(`error, unrecognized syntax: ${character}`);
+        return [1, `Error: unrecognized character: "${character}"n/Exit code: n0001`];
     }
     
     return tokens;
@@ -231,7 +231,7 @@ const parse = (tokens) => {
             return node;
         }
         
-        throw Error(`${token.type}`);
+        return [8, `Error: Unrecognized type: "${token.type}"\nExit code: n0008`];
     }
     
     let ast = {
