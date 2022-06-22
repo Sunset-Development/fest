@@ -4,17 +4,24 @@
 
 const { tokenize, parse } = require("./parser.js");
 const transform = require("./transformer");
-const generatecode = require("./codegenerator.js");
 
 ///////////////////////////////////
 
 const compile = (input_expression) => {
     // The compiler will only generate an Abstract Syntax Tree for now
 
-    return transform(parse(tokenize(input_expression)))
+    let tokens = tokenize(input_expression);
+    let ast = parse(tokens);
+    let newast = transform(ast);
+
+    if(newast[2] == true){
+        return newast[1];
+    }
+
+    return newast
 }
 
-//console.log(transform(parse(tokenize("1 * 2 + (2 + 3)"))).body[0].operation);
+console.log(compile("1 + "));
 //console.log(parse(tokenize("1 * 2 - (2 + 3)")))
 
 module.exports = compile;

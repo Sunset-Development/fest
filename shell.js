@@ -26,13 +26,13 @@ while(true){
 
         switch(process.platform){
             case "win32":
-                exec('cls', (err, stdout, stderr) => {if(err){ console.log("Error: unable to activate required commandsn/Exit code: n0005"); process.exit(1)}});
+                exec('cls', (err, stdout, stderr) => {if(err){ console.log("Error: unable to activate required commands\nExit code: n0005"); process.exit(1)}});
                 break;
             case "darwin" || "linux":
-                exec('clear', (err, stdout, stderr) => {if(err){ console.log("Error: unable to activate required commandsn/Exit code: n0005"); process.exit(1);}});
+                exec('clear', (err, stdout, stderr) => {if(err){ console.log("Error: unable to activate required commands\nExit code: n0005"); process.exit(1);}});
                 break;
             default:
-                console.log("Error: unsupported platformn/Exit code: n0007");
+                console.log("Error: unsupported platform\nExit code: n0007");
                 process.exit(1);
                 break;
         }

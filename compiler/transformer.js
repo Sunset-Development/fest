@@ -2,6 +2,11 @@
 // It works for now
 
 const transform = (ast) => {
+
+    if(ast[2] == true){
+        return ast;
+    }
+    
     let new_ast = {
         type: "program",
         body: []
@@ -107,6 +112,10 @@ const transform = (ast) => {
     const op = (func, ops) => {
         let node = func();
         let params = [node];
+
+        if(node.type == "CallOperator"){
+            return;
+        }
 
         while(ops.includes(cur_tok.op_type)){
             let operator_tok = cur_tok;

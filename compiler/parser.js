@@ -144,7 +144,7 @@ const tokenize = (expression) => {
         
         ///////////////////////////////////
         
-        return [1, `Error: unrecognized character: "${character}"n/Exit code: n0001`];
+        return [1, `Error: unrecognized character: "${character}"\nExit code: n0001`, true];
     }
     
     return tokens;
@@ -153,6 +153,10 @@ const tokenize = (expression) => {
 module.exports.tokenize = tokenize;
 
 const parse = (tokens) => {
+
+    if(tokens[2] == true){
+        return tokens;
+    }
     
     let currentIndex = 0;
         
