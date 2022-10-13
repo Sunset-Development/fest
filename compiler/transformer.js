@@ -98,23 +98,23 @@ const transform = (ast) => {
     ///////////////////////////////////
 
     const term = () => {
-        return op(factor, ["Mul", "Div"]);
+        return op(factor, ["Mul", "Div"], "te");
     }
 
     ///////////////////////////////////
 
     const expression = () => {
-        return op(term, ["Add", "Sub"]);
+        return op(term, ["Add", "Sub"], "ex");
     }
     
     ///////////////////////////////////
 
-    const op = (func, ops) => {
+    const op = (func, ops, t) => {
         let node = func();
         let params = [node];
 
-        if(node.type == "CallOperator"){
-            return;
+        if(!node){
+            return [2, `Error: Invalid syntax ${cur_tok.value} \nExit code: n0002`, true];
         }
 
         while(ops.includes(cur_tok.op_type)){
@@ -140,7 +140,10 @@ const transform = (ast) => {
 
     ///////////////////////////////////
 
-    new_ast.body.push(expression());
+    let result = expression();
+
+    if(result[2] != true){  new_ast.body.push(result);  }
+    else{ return result }
 
     ///////////////////////////////////
 
@@ -155,3 +158,4 @@ module.exports = transform;
 //14/6/2022, 00:40, 8
 //17/6/2022, 12:49, 9
 //20/6/2022, 21:15, 10
+//13/10/2022, 20:27, 11

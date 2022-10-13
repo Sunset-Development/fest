@@ -17,11 +17,11 @@ const compile = (input_expression) => {
     if(newast[2] == true){
         return newast[1];
     }
-
+    
     return newast
 }
 
-console.log(compile("1 + "));
+console.log(compile("32 + 1"));
 //console.log(parse(tokenize("1 * 2 - (2 + 3)")))
 
 module.exports = compile;
